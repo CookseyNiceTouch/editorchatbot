@@ -9,31 +9,49 @@ This project has two main parts:
 ## 1. Backend (Flask API)
 
 ### Prerequisites
-- Python (the version you used for your conda environment)
-- Conda (recommended)
+- Python (3.x recommended)
+- UV (fast Python package installer, https://github.com/astral-sh/uv)
 - DaVinci Resolve (for API features)
-- The required Python packages (see below)
 
 ### Setup & Run
 
 ```bash
-# Open a terminal and activate your conda environment
-conda activate your_env_name
+# If you don't have UV installed yet, install it:
+# On Linux/macOS: 
+# curl -LsSf https://astral.sh/uv/install.sh | sh
+# On Windows:
+# powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 # Go to the backend directory
 cd backend
 
-# Install dependencies
-pip install -r requirements.txt
+# Create and activate virtual environment (if not already created)
+uv venv
 
-# Set your environment variables (e.g., ANTHROPIC_API_KEY)
-# You can use a .env file in the backend directory
+# Install dependencies
+uv pip sync requirements.txt
+
+# Create a .env file for your API keys
+# On Windows:
+echo ANTHROPIC_API_KEY=your_api_key_here > .env
+# On macOS/Linux:
+# echo "ANTHROPIC_API_KEY=your_api_key_here" > .env
 
 # Run the Flask app
-python app.py
+uv run python app.py
 ```
 
 The backend will start on `http://127.0.0.1:5000/`.
+
+### API Keys Setup
+
+Create a `.env` file in the `backend` directory with the following content:
+
+```
+ANTHROPIC_API_KEY=your_actual_api_key_here
+```
+
+Replace `your_actual_api_key_here` with your Anthropic API key obtained from the Anthropic dashboard.
 
 ---
 
